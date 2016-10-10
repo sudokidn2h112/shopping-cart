@@ -18,24 +18,13 @@ var userRoutes = require('./routes/user');
 var app = express();
 
 //add to deploy
-    // Here we find an appropriate database to connect to, defaulting to
-    // localhost if we don't find one.
-    var uristring =
-    'mongodb://sudokid:langtutm1411@ds053206.mlab.com:53206/sudokid' || 'mongodb://localhost:27017/shopping';
-
-    // The http server will listen to an appropriate port, or default to
-
-
-    // Makes connection asynchronously.  Mongoose will queue up database
-    // operations and release them when the connection is complete.
-    mongoose.connect(uristring, function (err, res) {
-      if (err) {
-      console.log ('ERROR connecting to: ' + uristring + '. ' + err);
-      } else {
-      console.log ('Succeeded connected to: ' + uristring);
-      }
-    });
-
+ mongoose.connect('mongodb://shopping-cart:langtutm1411@ds053166.mlab.com:53166/shopping-cart-hoangnguyen', function (err){
+   if(err){
+     console.log('Connect Mongoose error! Error is: ' +err);
+   }else {
+     console.log('Connect Mongoose success!');
+   }
+ });
 //mongoose.connect('localhost:27017/shopping');
 
 require('./config/passport');
