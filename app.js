@@ -18,13 +18,20 @@ var userRoutes = require('./routes/user');
 var app = express();
 
 //add to deploy
- mongoose.connect('mongodb://shopping-cart:langtutm1411@ds053166.mlab.com:53166/shopping-cart-hoangnguyen', function (err){
-   if(err){
-     console.log('Connect Mongoose error! Error is: ' +err);
-   }else {
-     console.log('Connect Mongoose success!');
-   }
- });
+var connectionUrl = 'mongodb://shopping-cart:langtutm1411@ds053166.mlab.com:53166/shopping-cart-hoangnguyen';
+mongoose.connect(connectionUrl, function (err) {
+  var db = mongoose.connection;
+  if(err){
+    console.log("Connect Mongoose Err! " +err);
+    db.on('error', function(err){
+      console.log('Connect Mongoose Error! :' +err);
+    });
+  }
+    db.once('open', function (cb) {
+      console.log('Connect Mongoose Success!');
+    });
+
+});
 //mongoose.connect('localhost:27017/shopping');
 
 require('./config/passport');
